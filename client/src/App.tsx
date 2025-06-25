@@ -1,9 +1,7 @@
 import { FeedPage } from "./pages/FeedPage";
 
 function App() {
-  return (
-    <FeedPage />
-  );
+  return <FeedPage />;
 }
 
 export default App;
