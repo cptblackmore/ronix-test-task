@@ -1,34 +1,33 @@
-import { useEffect, useState } from "react";
 import { PostCard } from "../PostCard/PostCard";
 import { PostControls } from "../PostControls/PostControls";
-import { PostService } from "../../api/PostService";
-import type { Post } from "../../types/Post";
+import { usePostList } from "./usePostList";
 
 interface PostListProps {
   onCreateClick: () => void;
 }
 
 export const PostList: React.FC<PostListProps> = ({ onCreateClick }) => {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-  useEffect(() => {
-    PostService.getPosts().then((data) => setPosts(data));
-  }, []);
+  const {
+    query,
+    setQuery,
+    sortOrder,
+    setSortOrder,
+    filteredPosts,
+    updatePost,
+  } = usePostList();
 
   return (
     <div>
-      <PostControls posts={posts} onCreateClick={onCreateClick} />
+      <PostControls
+        query={query}
+        onQueryChange={setQuery}
+        sortOrder={sortOrder}
+        onSortChange={setSortOrder}
+        onCreateClick={onCreateClick}
+      />
       <div>
-        {posts.map((post) => (
-          <PostCard
-            key={post.id}
-            post={post}
-            onPostUpdate={(updated) =>
-              setPosts((prev) =>
-                prev.map((p) => (p.id === updated.id ? updated : p)),
-              )
-            }
-          />
+        {filteredPosts.map((post) => (
+          <PostCard key={post.id} post={post} onPostUpdate={updatePost} />
         ))}
       </div>
     </div>
