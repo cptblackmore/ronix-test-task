@@ -5,14 +5,18 @@ import { PostSortDropdown } from "./PostSortDropdown";
 
 interface PostControlsProps {
   posts: Post[];
+  onCreateClick: () => void;
 }
 
-export const PostControls: React.FC<PostControlsProps> = ({ posts }) => {
+export const PostControls: React.FC<PostControlsProps> = ({
+  posts,
+  onCreateClick,
+}) => {
   return (
     <div>
       <PostSearch posts={posts} />
       <PostSortDropdown posts={posts} />
-      <Button>Новый пост</Button>
+      <Button onClick={onCreateClick}>Новый пост</Button>
     </div>
   );
 };

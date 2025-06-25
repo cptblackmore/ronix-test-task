@@ -4,7 +4,11 @@ import { PostControls } from "../PostControls/PostControls";
 import { PostService } from "../../api/PostService";
 import type { Post } from "../../types/Post";
 
-export const PostList: React.FC = () => {
+interface PostListProps {
+  onCreateClick: () => void;
+}
+
+export const PostList: React.FC<PostListProps> = ({ onCreateClick }) => {
   const [posts, setPosts] = useState<Post[]>([]);
 
   useEffect(() => {
@@ -13,10 +17,10 @@ export const PostList: React.FC = () => {
 
   return (
     <div>
-      <PostControls posts={posts} />
+      <PostControls posts={posts} onCreateClick={onCreateClick} />
       <div>
         {posts.map((post) => (
-          <PostCard post={post} />
+          <PostCard key={post.id} post={post} />
         ))}
       </div>
     </div>
