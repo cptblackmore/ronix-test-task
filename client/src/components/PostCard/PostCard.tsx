@@ -13,9 +13,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
       </header>
       <main>
         <h2>{post.title}</h2>
-        {post.image &&
-          <img src={post.image} alt="" />
-        }
+        {post.image && <img src={import.meta.env.VITE_SERVER_URL + post.image} alt="" />}
       </main>
       <footer>
         {post.likes} {post.comments.length}
