@@ -8,3 +8,8 @@ export interface Post {
   likes: number;
   image?: string;
 }
+
+export interface PostCreatePayload {
+  title?: string;
+  image?: File;
+}
