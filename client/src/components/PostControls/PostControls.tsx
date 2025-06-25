@@ -1,21 +1,27 @@
-import type { Post } from "../../types/Post";
+import type { SortOrder } from "../../types/SortOrder";
 import { Button } from "../Button";
 import { PostSearch } from "./PostSearch";
 import { PostSortDropdown } from "./PostSortDropdown";
 
 interface PostControlsProps {
-  posts: Post[];
   onCreateClick: () => void;
+  query: string;
+  onQueryChange: (query: string) => void;
+  sortOrder: "new" | "old";
+  onSortChange: (sortOrder: SortOrder) => void;
 }
 
 export const PostControls: React.FC<PostControlsProps> = ({
-  posts,
+  query,
+  onQueryChange,
+  sortOrder,
+  onSortChange,
   onCreateClick,
 }) => {
   return (
     <div>
-      <PostSearch posts={posts} />
-      <PostSortDropdown posts={posts} />
+      <PostSearch query={query} onQueryChange={onQueryChange} />
+      <PostSortDropdown sortOrder={sortOrder} onSortChange={onSortChange} />
       <Button onClick={onCreateClick}>Новый пост</Button>
     </div>
   );
