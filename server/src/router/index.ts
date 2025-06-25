@@ -8,10 +8,13 @@ import {
   getPosts,
   likePost,
 } from "../controllers/post.controller";
+import { verifyApiKey } from "../middleware/verifyApiKey";
 
 const upload = multer({ dest: "uploads/" });
 
 export const router = Router();
+
+router.use(verifyApiKey);
 
 router.get("/posts", getPosts);
 router.get("/posts/:postId", getPostById);
