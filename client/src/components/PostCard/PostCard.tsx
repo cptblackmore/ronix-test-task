@@ -13,13 +13,9 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => {
       </header>
       <main>
         <h2>{post.title}</h2>
-        {post.content.text ||
-          (post.content.image && (
-            <>
-              <p>{post.content.text}</p>
-              <img src={post.content.image} alt="" />
-            </>
-          ))}
+        {post.image &&
+          <img src={post.image} alt="" />
+        }
       </main>
       <footer>
         {post.likes} {post.comments.length}
