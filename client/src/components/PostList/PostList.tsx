@@ -20,7 +20,15 @@ export const PostList: React.FC<PostListProps> = ({ onCreateClick }) => {
       <PostControls posts={posts} onCreateClick={onCreateClick} />
       <div>
         {posts.map((post) => (
-          <PostCard key={post.id} post={post} />
+          <PostCard
+            key={post.id}
+            post={post}
+            onPostUpdate={(updated) =>
+              setPosts((prev) =>
+                prev.map((p) => (p.id === updated.id ? updated : p)),
+              )
+            }
+          />
         ))}
       </div>
     </div>
