@@ -14,6 +14,15 @@ export class PostService {
     });
   }
 
+  static async getPostById(postId: string) {
+    return safeFetch<Post>(`${this.baseURL}/${postId}`, {
+      method: "GET",
+      headers: {
+        "X-Api-Key": this.API_KEY,
+      },
+    });
+  }
+
   static async createPost(post: PostCreatePayload) {
     const formData = new FormData();
     if (post.title) {
@@ -30,5 +39,37 @@ export class PostService {
       },
       body: formData,
     });
+  }
+
+  static async createComment(postId: string, text: string) {
+    return safeFetch<Post>(`${this.baseURL}/${postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Api-Key": this.API_KEY,
+      },
+      body: JSON.stringify({ text }),
+    });
+  }
+
+  static async likePost(postId: string): Promise<Post | null> {
+    const likedRaw = localStorage.getItem("likedPosts");
+    const liked: Set<string> = new Set(likedRaw ? JSON.parse(likedRaw) : []);
+
+    if (liked.has(postId)) {
+      return null;
+    }
+
+    const post = await safeFetch<Post>(`${this.baseURL}/${postId}/likes`, {
+      method: "POST",
+      headers: {
+        "X-Api-Key": this.API_KEY,
+      },
+    });
+
+    liked.add(postId);
+    localStorage.setItem("likedPosts", JSON.stringify([...liked]));
+
+    return post;
   }
 }
