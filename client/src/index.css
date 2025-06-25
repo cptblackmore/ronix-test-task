@@ -1,7 +1,9 @@
 @import "tailwindcss";
 
 @layer base {
-  *, ::before, ::after {
+  *,
+  ::before,
+  ::after {
     box-sizing: border-box;
   }
 
@@ -24,10 +26,12 @@
 
   button {
     font: inherit;
+    cursor: pointer;
   }
 }
 
 @theme {
   --radius-10: 10px;
   --spacing-15: 15px;
+  --color-accent: #4f8bd0;
 }
