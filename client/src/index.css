@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
 @layer base {
@@ -13,7 +14,7 @@
 
   body {
     margin: 0;
-    font-family: system-ui, sans-serif;
+    font-family: "Roboto", sans-serif;
     color: #696969;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
