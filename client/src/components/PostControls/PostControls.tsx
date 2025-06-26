@@ -19,9 +19,11 @@ export const PostControls: React.FC<PostControlsProps> = ({
   onCreateClick,
 }) => {
   return (
-    <div>
-      <PostSearch query={query} onQueryChange={onQueryChange} />
-      <PostSortDropdown sortOrder={sortOrder} onSortChange={onSortChange} />
+    <div className="flex justify-between gap-[15px] my-[5px] min-w-0">
+      <div className="flex-1 flex items-center gap-[15px] min-w-0">
+        <PostSearch query={query} onQueryChange={onQueryChange} />
+        <PostSortDropdown sortOrder={sortOrder} onSortChange={onSortChange} />
+      </div>
       <Button onClick={onCreateClick}>Новый пост</Button>
     </div>
   );
