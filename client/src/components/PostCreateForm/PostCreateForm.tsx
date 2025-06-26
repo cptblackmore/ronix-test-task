@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import ImageIcon from "../../assets/icons/ImageIcon";
 import { formatDate } from "../../utils/formatDate";
 import { Button } from "../Button";
@@ -14,62 +15,71 @@ export const PostCreateForm: React.FC<PostCreateFormProps> = ({
 }) => {
   const { loading, error, handleTitleChange, handleImageChange, handleSubmit } =
     useCreatePost(onSuccess);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-lg shadow p-4 space-y-4">
-      <header>
-        <h2 className="text-accent font-semibold text-sm">Новый пост</h2>
-        <p className="text-xs text-gray-500">
-          {formatDate(new Date().toISOString(), true)}
-        </p>
-      </header>
+    <form onSubmit={handleSubmit} className="mt-[20px]">
+      <div className="rounded-10 border border-[#DBDBDB] shadow p-15">
+        <header>
+          <h2 className="text-accent font-medium text-[16px] leading-6">
+            Новый пост
+          </h2>
+          <p className="text-[#D7D7D7] leading-7">
+            {formatDate(new Date().toISOString(), true)}
+          </p>
+        </header>
 
-      <fieldset className="space-y-2">
-        <label className="block">
-          <span className="sr-only">Заголовок</span>
-          <input
-            type="text"
-            name="title"
-            placeholder="Введите заголовок"
-            className="w-full border rounded px-3 py-2 text-sm"
-            onChange={handleTitleChange}
-          />
-        </label>
-
-        <label className="block">
-          <span className="text-sm text-gray-600">Прикрепите</span>
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            id="upload-image"
-          />
-          <label
-            htmlFor="upload-image"
-            className="inline-flex items-center gap-2 px-4 py-2 border rounded cursor-pointer text-sm"
-          >
-            <ImageIcon />
-            <span>Фото</span>
+        <fieldset className="pt-2.5">
+          <label className="block">
+            <span className="sr-only">Заголовок</span>
+            <input
+              type="text"
+              name="title"
+              placeholder="Введите заголовок"
+              className="w-full bg-[#FAFAFA] rounded-5 px-[10px] py-[5px] font-medium text-[14px] placeholder-[#D7D7D7]"
+              onChange={handleTitleChange}
+            />
           </label>
-        </label>
-      </fieldset>
 
-      {error && <p className="text-xs text-red-600">{error}</p>}
+          <div className="pt-[10px] flex flex-col items-start">
+            <span className="text-[#D7D7D7] mb-[6px]">Прикрепите</span>
 
-      <div className="flex justify-between items-center pt-4">
-        <Button
-          type="button"
-          onClick={onCancel}
-          className="px-4 py-2 rounded border text-gray-500"
-        >
+            <input
+              type="file"
+              ref={fileInputRef}
+              id="upload-image"
+              name="image"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+
+            <label
+              htmlFor="upload-image"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  fileInputRef.current?.click();
+                }
+              }}
+              className="inline-flex items-center gap-[10px] px-[10px] py-[5px]
+                border border-[#DBDBDB] rounded-5 cursor-pointer text-[#A9A9A9]
+                hover:border-accent hover:text-accent transition-colors"
+            >
+              <ImageIcon />
+              <span>Фото</span>
+            </label>
+          </div>
+        </fieldset>
+
+        {error && <p className="text-xs text-error p-2">{error}</p>}
+      </div>
+
+      <div className="flex justify-between items-center pt-15">
+        <Button type="button" onClick={onCancel} variant="secondary">
           Отмена
         </Button>
-        <Button
-          type="submit"
-          disabled={loading}
-          className="bg-accent text-white px-4 py-2 rounded"
-        >
+        <Button type="submit" disabled={loading}>
           {loading ? "Публикуем…" : "Опубликовать"}
         </Button>
       </div>
