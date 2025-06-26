@@ -11,24 +11,26 @@ export const FeedPage: React.FC = () => {
 
   return (
     <Container>
-      <header className="border-b border-[#F8F8F8] flex items-center justify-between pt-[32px] pb-15 mb-15">
-        <div className="flex items-center gap-[19px]">
-          <button disabled className="cursor-not-allowed">
-            <ReturnIcon />
-          </button>
-          <h1 className="text-[20px] text-[#DBDBDB]">Лента</h1>
-        </div>
-        <StoriesBar />
-      </header>
-      {mode === "feed" ? (
-        <PostList onCreateClick={() => setMode("create")} />
-      ) : (
-        <PostCreateForm
-          onCancel={() => setMode("feed")}
-          onSuccess={() => setMode("feed")}
-        />
-      )}
-      <BottomNavbar />
+      <div className="mb-[100px]">
+        <header className="border-b border-[#F8F8F8] flex items-center justify-between pt-[32px] pb-15 mb-15">
+          <div className="flex items-center gap-[19px]">
+            <button disabled className="cursor-not-allowed">
+              <ReturnIcon />
+            </button>
+            <h1 className="text-[20px] text-[#DBDBDB]">Лента</h1>
+          </div>
+          <StoriesBar />
+        </header>
+        {mode === "feed" ? (
+          <PostList onCreateClick={() => setMode("create")} />
+        ) : (
+          <PostCreateForm
+            onCancel={() => setMode("feed")}
+            onSuccess={() => setMode("feed")}
+          />
+        )}
+        <BottomNavbar />
+      </div>
     </Container>
   );
 };
