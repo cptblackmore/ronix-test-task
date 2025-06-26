@@ -51,13 +51,7 @@ export const BottomNavbar: React.FC = () => {
         {items.map(({ id, icon, active }) => {
           const color = active ? ACTIVE_COLOR : INACTIVE_COLOR;
 
-          return (
-            <button
-              key={id}
-            >
-              {icon(color)}
-            </button>
-          );
+          return <button key={id}>{icon(color)}</button>;
         })}
       </div>
     </nav>
