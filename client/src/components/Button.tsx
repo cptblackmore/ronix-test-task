@@ -14,7 +14,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const base =
-    "min-w-[101px] h-[29px] px-1 flex items-center justify-center rounded-5 transition-colors";
+    "min-w-[101px] h-[30px] px-1 flex items-center justify-center rounded-5 transition-colors";
 
   const variants = {
     primary: clsx(
