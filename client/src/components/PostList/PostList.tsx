@@ -25,7 +25,7 @@ export const PostList: React.FC<PostListProps> = ({ onCreateClick }) => {
         onSortChange={setSortOrder}
         onCreateClick={onCreateClick}
       />
-      <div>
+      <div className="flex flex-col gap-[10px]">
         {filteredPosts.map((post) => (
           <PostCard key={post.id} post={post} onPostUpdate={updatePost} />
         ))}

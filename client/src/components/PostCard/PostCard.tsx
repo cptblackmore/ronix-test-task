@@ -4,6 +4,9 @@ import { formatDate } from "../../utils/formatDate";
 import { PostComment } from "../PostComment/PostComment";
 import { PostCommentForm } from "../PostCommentForm/PostCommentForm";
 import { useLikePost } from "../../hooks/useLikePost";
+import { Avatar } from "../Avatar";
+import CommentIcon from "../../assets/icons/CommentIcon";
+import { LikeButton } from "../LikeButton";
 
 interface PostCardProps {
   post: Post;
@@ -19,41 +22,55 @@ export const PostCard: React.FC<PostCardProps> = ({ post, onPostUpdate }) => {
   };
 
   return (
-    <article className="rounded-xl border p-4">
-      <header className="text-sm text-muted">
-        <div>Author</div>
-        <div>{formatDate(post.postedAt)}</div>
-      </header>
+    <article
+      className={`${post.comments.length > 0 ? "bg-[#F8F8F8]" : "bg-[#EFEFEF]"} rounded-10`}
+    >
+      <div className="bg-[#F1F1F1] border border-[#DBDBDB] rounded-10">
+        <header className="p-15">
+          <div className="flex items-center gap-15">
+            <Avatar />
+            <div>
+              <div className="leading-6">Author</div>
+              <div className="text-[#D7D7D7] leading-6">
+                {formatDate(post.postedAt)}
+              </div>
+            </div>
+          </div>
+          <div className="border-b border-[#DBDBDB] mt-[10px]"></div>
+        </header>
 
-      <main className="my-2">
-        <h2 className="text-lg font-semibold">{post.title}</h2>
-        {post.image && (
-          <img
-            src={import.meta.env.VITE_SERVER_URL + post.image}
-            alt=""
-            className="my-2 rounded"
+        <main>
+          <h2 className="text-[16px] pl-15 pb-15 pr-15 leading-6">
+            {post.title}
+          </h2>
+          {post.image && (
+            <img
+              src={import.meta.env.VITE_SERVER_URL + post.image}
+              alt=""
+              className="rounded-5 w-full"
+            />
+          )}
+        </main>
+
+        <footer className="text-[14px] font-semibold flex items-center gap-9 px-15 py-2.5">
+          <LikeButton
+            likes={post.likes}
+            hasLiked={hasLiked}
+            onLike={handleLike}
           />
-        )}
-      </main>
+          <span className="flex items-center gap-1 text-[#D7D7D7]">
+            <CommentIcon /> {post.comments.length}
+          </span>
+        </footer>
+      </div>
 
-      <footer className="text-sm text-gray-500 flex gap-4">
-        <button
-          onClick={handleLike}
-          className={`flex items-center gap-1 transition-colors ${
-            hasLiked ? "text-red-500" : "text-neutral-400 hover:text-red-400"
-          }`}
-          disabled={hasLiked}
-        >
-          ♡ {post.likes}
-        </button>
-        <span className="flex items-center gap-1 text-neutral-400">
-          💬 {post.comments.length}
-        </span>
-      </footer>
-
-      {post.comments.map((comment, i) => (
-        <PostComment key={i} comment={comment} />
-      ))}
+      {post.comments.length > 0 && (
+        <div className="flex flex-col pl-15 pt-15 pr-15">
+          {post.comments.map((comment, i) => (
+            <PostComment key={i} comment={comment} />
+          ))}
+        </div>
+      )}
       <PostCommentForm postId={post.id} onCommentAdded={handleCommentAdded} />
     </article>
   );

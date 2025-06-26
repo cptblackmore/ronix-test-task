@@ -16,7 +16,7 @@ export const ClearIconButton: React.FC<ClearIconButtonProps> = ({
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <CrossIcon color={hovered ? "#FF0000" : "#CDCDCD"} />
+      <CrossIcon color={hovered ? "#ff6464" : "#CDCDCD"} />
     </button>
   );
 };

@@ -1,5 +1,6 @@
 import type { Comment } from "../../types/Comment";
 import { formatDate } from "../../utils/formatDate";
+import { Avatar } from "../Avatar";
 
 interface PostCommentProps {
   comment: Comment;
@@ -7,14 +8,14 @@ interface PostCommentProps {
 
 export const PostComment: React.FC<PostCommentProps> = ({ comment }) => {
   return (
-    <div className="flex items-start gap-3">
-      <div className="w-10 h-10 bg-neutral-300 rounded-full shrink-0" />
+    <div className="flex gap-15 pb-[13px]">
+      <Avatar />
       <div>
-        <div className="text-sm font-medium text-neutral-700">User</div>
-        <div className="text-xs text-neutral-400">
+        <div className="leading-6">User</div>
+        <div className="text-[#D7D7D7] leading-6">
           {formatDate(comment.postedAt)}
         </div>
-        <p className="text-sm text-neutral-800 mt-1">{comment.text}</p>
+        <p className="mt-2.5">{comment.text}</p>
       </div>
     </div>
   );
