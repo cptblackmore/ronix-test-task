@@ -33,6 +33,7 @@
 
 @theme {
   --radius-10: 10px;
+  --radius-5: 5px;
   --spacing-15: 15px;
   --color-accent: #4f8bd0;
 }
